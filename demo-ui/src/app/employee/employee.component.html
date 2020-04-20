@@ -1,0 +1,58 @@
+<div class="col-md-30">
+
+  <div class="container form-group-lg">
+
+    <div class="form-group mt-10">
+      <label for="name">Search by name:</label>
+      <input type="name" [(ngModel)]="this.searchForm" name="active" class="form-control" id="name">
+      <button type="button" class="btn btn-outline-primary mt-20" (click)="onSearch(this.searchForm)">Search</button>
+
+      <div class="mt-10" *ngIf="isSearching">
+        <span aria-hidden="true" *ngIf="employees">Found {{employees.length}} items</span>
+        <button type="button" class="btn   btn-danger" (click)="onCloseSearch()" aria-label="Close">Close</button>
+      </div>
+    </div>
+
+    <button class="btn btn-outline-primary" (click)="openCreateDialog()">New Employee</button>
+
+    <div>
+      <nav aria-label="..." *ngIf="!isSearching">
+        <ul style="margin-left: 180px;margin-top:-10px;" class="pagination" *ngIf="page?.content">
+          <li *ngFor="let page of ' '.repeat(page.totalPages).split(''), let i = index " (click)="onSelect(i)"
+              [class.active]="i === selectedPage" class="page-item"><a class="page-link" href="#">{{i}}</a></li>
+        </ul>
+      </nav>
+    </div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Active</th>
+        <th>Department</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let employee of employees">
+        <td>
+          <button class="btn btn-outline-primary" (click)="openViewDialog(employee)">View</button>
+        </td>
+        <td>
+          <button class="btn btn-outline-primary" (click)="openUpdateDialog(employee)">Update</button>
+        </td>
+        <td>{{employee.id}}</td>
+        <td>{{employee.name}}</td>
+        <td>{{employee.active ? "yes" : "no"}}</td>
+        <td>{{employee.department.name}}</td>
+        <td>
+          <button class="btn btn-danger" (click)="deleteEmployee(employee)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

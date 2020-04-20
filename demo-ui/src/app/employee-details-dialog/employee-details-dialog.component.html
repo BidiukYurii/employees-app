@@ -1,0 +1,34 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Employee</h4>
+  <button type="button" class="close" (click)="close()" aria-label="Close">
+    <span aria-hidden="true">×</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="name" [(ngModel)]="user.name" placeholder="Name" name="name" [disabled]="!this.edit"
+             class="form-control" id="name">
+    </div>
+
+    <div class="form-group">
+      <label for="active">Active:</label>
+      <input type="checkbox" [(ngModel)]="user.active" [disabled]="!this.edit" name="active" class="form-control"
+             id="active">
+    </div>
+
+    <div class="form-group">
+      <label for="department">Website:</label>
+      <select #selectElement class="form-control" id="department" [disabled]="!this.edit"
+              (change)="changeDepartment(selectElement.value)">
+        <option *ngFor="let department of departments" [selected]="department.id == user.department.id" [ngValue]="department.name"
+                [value]="department.id">{{department.name}}</option>
+      </select>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-success" (click)="updateEmployee()" *ngIf="this.edit">Update</button>
+  <button type="button" class="btn btn-danger" (click)="close()">Cancel</button>
+</div>

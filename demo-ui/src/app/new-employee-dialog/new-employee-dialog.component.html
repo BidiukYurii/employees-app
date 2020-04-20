@@ -1,0 +1,33 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">New employee</h4>
+  <button type="button" class="close" (click)="close()" aria-label="Close">
+    <span aria-hidden="true">×</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="name" [(ngModel)]="name" placeholder="Name" name="name" class="form-control" id="name">
+    </div>
+
+    <div class="form-group">
+      <label for="active">Active:</label>
+      <input type="checkbox" [(ngModel)]="active" name="active" class="form-control" id="active">
+    </div>
+
+    <div class="form-group">
+      <label for="department">Department:</label>
+      <select #selectElement class="form-control" id="department"  (change)="changeDepartment(selectElement.value)">
+        <option [value]=""></option>
+        <option *ngFor="let department of departments" [ngValue]="departmentId"
+                [value]="department.id">{{department.name}}</option>
+      </select>
+    </div>
+
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-success" [disabled]="!(name && departmentId)" (click)="createEmployee()">Create</button>
+  <button type="button" class="btn btn-danger" (click)="close()">Cancel</button>
+</div>
